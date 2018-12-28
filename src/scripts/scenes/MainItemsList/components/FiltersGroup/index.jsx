@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import SingleFilter from '../SingleFilter';
 
+import './styles.scss';
+
 const propTypes = {
   item: PropTypes.shape({
     groupName: PropTypes.string,

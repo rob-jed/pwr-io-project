@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux'
 
+import store from 'data/store';
 import Routes from 'components/Routes';
 
 class App extends Component {
   render() {
     return (
-      <Routes />
+      <Provider store={store}>
+        <Routes />
+      </Provider>
     );
   }
 }

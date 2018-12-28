@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import FiltersGroup from '../FiltersGroup';
 
+import './styles.scss';
+
 const dummyFilters = [
   {
     groupName: 'Audi',
@@ -78,17 +80,23 @@ class Filters extends Component {
       return null;
     }
 
-    return this.filtersList.map((filtersGroup) => {
-      const { groupName } = filtersGroup;
+    return (
+      <div className="app-filters">
+        {
+          this.filtersList.map((filtersGroup) => {
+            const { groupName } = filtersGroup;
 
-      return (
-        <FiltersGroup
-          key={groupName}
-          item={filtersGroup}
-          onChange={this.handleOnChange}
-        />
-      );
-    });
+            return (
+              <FiltersGroup
+                key={groupName}
+                item={filtersGroup}
+                onChange={this.handleOnChange}
+              />
+            );
+          })
+        }
+      </div>
+    );
   }
 }
 
