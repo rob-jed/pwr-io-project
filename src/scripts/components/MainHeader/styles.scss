@@ -1,0 +1,36 @@
+.app-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+
+  height: 64px;
+}
+
+.app-header .side-wrapper {
+  width: 240px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.app-header .main-content {
+  flex: 1;
+
+  background-color: #2196f3;
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+
+  display: flex;
+  align-items: center;
+  padding: 10px 25px;
+
+  h1 {
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+  }
+}

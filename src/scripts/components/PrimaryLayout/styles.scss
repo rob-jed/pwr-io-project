@@ -1,0 +1,17 @@
+$headerHeight: 64px;
+
+.app-wrapper {
+  display: flex;
+  padding-top: $headerHeight;
+}
+
+.app-sidebar {
+  width: 240px;
+  background-color: #fff;
+}
+
+.app-content {
+  height: calc(100vh - #{$headerHeight});
+  flex-grow: 1;
+  overflow: auto;
+}

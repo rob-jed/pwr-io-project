@@ -1,14 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import PrimaryLayout from 'components/PrimaryLayout';
+
+import Filters from './components/Filters';
 
 function MainItemsList() {
   return (
-    <React.Fragment>
-      <h1>Lista samochodów</h1>
-      <Link to="/login">
-        Login
-      </Link>
-    </React.Fragment>
+    <PrimaryLayout
+      headerTitle="Komis samochodowy Jędrzejewski &amp; Hadrian"
+      sidebar={<Filters />}
+    >
+    </PrimaryLayout>
   );
 }
 
