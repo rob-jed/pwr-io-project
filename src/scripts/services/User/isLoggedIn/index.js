@@ -1,9 +1,7 @@
-// import Cookie from 'js-cookie';
+import Cookie from 'js-cookie';
 
 function isLoggedIn() {
-  return true;
-
-  // return !!Cookie.get('io_app_token');
+  return !!Cookie.get('io_app_token');
 }
 
 export default isLoggedIn;

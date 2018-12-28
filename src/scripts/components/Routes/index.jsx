@@ -9,8 +9,17 @@ function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={route('/')} render={loadChunk('/')} />
-        <Route path={route('login')} render={loadChunk('login')} />
+        <Route
+          exact
+          noAuth
+          path={route('/')}
+          render={loadChunk('/')}
+        />
+        <Route
+          noAuth
+          path={route('login')}
+          render={loadChunk('login')}
+        />
       </Switch>
     </BrowserRouter>
   );
