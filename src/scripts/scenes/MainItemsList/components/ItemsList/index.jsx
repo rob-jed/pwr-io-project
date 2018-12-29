@@ -61,11 +61,6 @@ const dummyItems = [
 ];
 
 class ItemsList extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
   componentDidMount() {
     const { dispatch, storeItems } = this.props;
 
