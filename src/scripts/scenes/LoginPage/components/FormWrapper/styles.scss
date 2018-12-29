@@ -1,0 +1,40 @@
+.login-form-wrapper {
+  width: 400px;
+  display: flex;
+  padding: 24px;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+}
+
+.login-form-header .header-icon {
+  margin: auto;
+  background-color: rgb(225, 0, 80);
+
+  width: 40px;
+  height: 40px;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  user-select: none;
+  border-radius: 50%;
+  justify-content: center;
+
+  svg {
+    width: 100%;
+    height: 65%;
+    display: inline-block;
+    fill: #fff;
+  }
+}
+
+.login-form-header .header-title {
+  font-size: 22px;
+  margin: 15px 0;
+}
+
+.login-form-wrapper .button {
+  width: 100%;
+  margin-top: 24px;
+}
