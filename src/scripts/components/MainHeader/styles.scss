@@ -34,3 +34,17 @@
     font-weight: bold;
   }
 }
+
+.app-header .buttons-group {
+  margin-left: auto;
+
+  a {
+    text-decoration: none;
+  }
+
+  .button {
+    &:hover {
+      background-color: #c02b2b;
+    }
+  }
+}

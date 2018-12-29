@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
+import LogOutButton from 'components/LogOutButton';
+
+import { isLoggedIn } from 'services/User';
+import { route } from 'services/URL';
 
 import './styles.scss';
+import Button from "../Button";
 
 const propTypes = {
   title: PropTypes.string,
@@ -26,6 +33,16 @@ function MainHeader({ title, showBackButton }) {
 
       <div className="main-content">
         <h1>{title}</h1>
+
+        <div className="buttons-group">
+          {
+            isLoggedIn() ? <LogOutButton /> : (
+              <Link to={route('login')}>
+                <Button text="Zaloguj" customClass="button-login" />
+              </Link>
+            )
+          }
+        </div>
       </div>
     </header>
   );
