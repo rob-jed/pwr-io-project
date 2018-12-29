@@ -4,7 +4,7 @@ function getTitleFromPathname(pathname) {
 
   switch (pathname) {
   case '/admin/add-client':
-    title += `${separator}Dodaj klienta`;
+    title += `${separator}Dodaj osobę`;
     break;
   case '/admin/add-transaction':
     title += `${separator}Dodaj transakcję`;

@@ -7,6 +7,7 @@ import ErrorMessage from 'components/ErrorMessage';
 import SuccessMessage from 'components/SuccessMessage';
 
 import { isEmail } from 'services/String';
+import { createClient } from 'services/APIs';
 
 import './styles.scss';
 
@@ -84,12 +85,18 @@ class AddClient extends Component {
       return;
     }
 
-    // TODO: API CALL
-    this.setState({
-      formFields: { ...formFieldsShape },
-      errorMessage: '',
-      successMessage: 'Dodano klienta',
-    });
+    const { formFields } = this.state;
+
+    createClient(formFields)
+      .then((response) => {
+          console.log(response.code);
+          // TODO: Finish validation
+          // this.setState({
+          //   formFields: { ...formFieldsShape },
+          //   errorMessage: '',
+          //   successMessage: 'Dodano osobę',
+          // });
+        });
   }
 
   render() {

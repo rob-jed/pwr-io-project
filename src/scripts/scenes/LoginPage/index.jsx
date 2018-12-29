@@ -6,6 +6,7 @@ import SimpleInput from 'components/SimpleInput';
 import Button from 'components/Button';
 import FormWrapper from './components/FormWrapper';
 
+import { handleLogin } from 'services/APIs';
 import { createLoggedInCookie } from 'services/User';
 import { isEmail } from 'services/String';
 
@@ -60,11 +61,35 @@ class LoginPage extends Component {
       return;
     }
 
-    const { history } = this.props;
+    const { username, password } = this.state;
 
-    createLoggedInCookie('token_aplikacji');
+    handleLogin(username, password).then((response) => {
+      if (!response) {
+        this.setState({
+          error: 'Coś poszło nie tak. Spróbuj ponownie',
+        });
 
-    history.push('/');
+        return;
+      }
+
+      if (response.error) {
+        this.setState({
+          error: response.error,
+        });
+
+        return;
+      }
+
+      const { access_token: token } = response;
+
+      if (token) {
+        const { history } = this.props;
+
+        createLoggedInCookie(token);
+
+        history.push('/');
+      }
+    });
   }
 
   render() {

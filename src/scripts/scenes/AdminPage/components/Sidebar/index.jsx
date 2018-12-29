@@ -12,7 +12,7 @@ const propTypes = {
 const links = [
   {
     url: '/add-client',
-    text: 'Dodaj klienta',
+    text: 'Dodaj osobę',
   },
   {
     url: '/transactions-list',
