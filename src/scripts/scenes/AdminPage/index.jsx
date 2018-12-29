@@ -40,8 +40,6 @@ class AdminPage extends Component {
         {...props}
       />
     );
-
-
   }
 
   render() {
