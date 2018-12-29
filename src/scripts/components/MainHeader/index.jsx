@@ -26,7 +26,9 @@ function MainHeader({ title, showBackButton }) {
       <div className="side-wrapper">
         {
           showBackButton && (
-            <button>Back</button>
+            <Link to='/'>
+              <Button text="Lista" customClass="button-home"/>
+            </Link>
           )
         }
       </div>

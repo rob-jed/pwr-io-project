@@ -9,6 +9,10 @@
   height: 64px;
 }
 
+.app-header a {
+  text-decoration: none;
+}
+
 .app-header .side-wrapper {
   width: 240px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -38,13 +42,18 @@
 .app-header .buttons-group {
   margin-left: auto;
 
-  a {
-    text-decoration: none;
-  }
-
   .button {
     &:hover {
       background-color: #c02b2b;
     }
+  }
+}
+
+.app-header .button-home {
+  background-color: #06ad30;
+  width: 140px;
+
+  &:hover {
+    background-color: darken(#06ad30, 5);
   }
 }
