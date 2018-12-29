@@ -20,6 +20,10 @@ function Routes() {
           path={route('login')}
           render={loadChunk('login')}
         />
+        <Route
+          path={route('admin')}
+          render={loadChunk('admin')}
+        />
       </Switch>
     </BrowserRouter>
   );
