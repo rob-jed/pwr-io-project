@@ -1,59 +1,62 @@
 .app-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+    display: flex;
 
-  display: flex;
+    height: 64px;
 
-  height: 64px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
 }
 
 .app-header a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .app-header .side-wrapper {
-  width: 240px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 240px;
+
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    background-color: #fff;
 }
 
 .app-header .main-content {
-  flex: 1;
+    display: flex;
+    flex: 1;
+    align-items: center;
 
-  background-color: #2196f3;
-  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+    padding: 10px 25px;
 
-  display: flex;
-  align-items: center;
-  padding: 10px 25px;
+    background-color: #2196f3;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
 
-  h1 {
-    font-size: 18px;
-    color: #fff;
-    font-weight: bold;
-  }
+    h1 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+    }
 }
 
 .app-header .buttons-group {
-  margin-left: auto;
+    margin-left: auto;
 
-  .button {
-    &:hover {
-      background-color: #c02b2b;
+    .button {
+        &:hover {
+            background-color: #c02b2b;
+        }
     }
-  }
 }
 
 .app-header .button-home {
-  background-color: #06ad30;
-  width: 140px;
+    width: 140px;
 
-  &:hover {
-    background-color: darken(#06ad30, 5);
-  }
+    background-color: #06ad30;
+
+    &:hover {
+        background-color: darken(#06ad30, 5);
+    }
 }

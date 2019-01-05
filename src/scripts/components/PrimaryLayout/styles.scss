@@ -1,18 +1,22 @@
 $headerHeight: 64px;
 
 .app-wrapper {
-  display: flex;
-  padding-top: $headerHeight;
+    display: flex;
+
+    padding-top: $headerHeight;
 }
 
 .app-sidebar {
-  width: 240px;
-  background-color: #fff;
+    width: 240px;
+
+    background-color: #fff;
 }
 
 .app-content {
-  height: calc(100vh - #{$headerHeight});
-  flex-grow: 1;
-  overflow: auto;
-  max-width: calc(100% - 240px);
+    flex-grow: 1;
+
+    height: calc(100vh - #{$headerHeight});
+    max-width: calc(100% - 240px);
+
+    overflow: auto;
 }

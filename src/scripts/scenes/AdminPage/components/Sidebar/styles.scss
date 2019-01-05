@@ -1,28 +1,34 @@
 $activeBgColor: #2196f3;
 
 .admin-page-sidebar-nav a {
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.87);
+    color: rgba(0, 0, 0, .87);
+    text-decoration: none;
 }
 
 .admin-page-sidebar-nav .nav-item a {
-  padding: 40px 25px;
-  cursor: pointer;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  font-size: 18px;
-  line-height: 22px;
-  transition: all .15s;
-  display: block;
+    display: block;
 
-  &:hover {
-    background-color: $activeBgColor;
-    color: #fff;
-  }
+    padding: 40px 25px;
+
+    font-size: 18px;
+    line-height: 22px;
+
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    cursor: pointer;
+
+    transition: all .15s;
+
+    &:hover {
+        color: #fff;
+
+        background-color: $activeBgColor;
+    }
 }
 
 .admin-page-sidebar-nav .nav-item.active a {
-  background-color: $activeBgColor;
-  font-size: 19px;
-  font-weight: bold;
-  color: #fff;
+    font-size: 19px;
+    font-weight: bold;
+    color: #fff;
+
+    background-color: $activeBgColor;
 }
