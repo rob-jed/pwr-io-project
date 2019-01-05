@@ -8,7 +8,7 @@ import Button from 'components/Button';
 import ErrorMessage from 'components/ErrorMessage';
 import SuccessMessage from 'components/SuccessMessage';
 
-import { addTransaction } from 'services/APIs';
+import { createEmployee } from 'services/APIs';
 
 import { toggleLoader } from 'data/store/actions';
 
@@ -17,16 +17,15 @@ import { updateModels } from '../../services';
 import './styles.scss';
 
 const formFieldsShape = {
-  employee_id: '',
   person_id: '',
-  offer_id: '',
-  transaction_type: '',
-  transaction_date: '',
-  amount: '',
-  facture_number: '',
+  employment_date: '',
+  salary: '',
+  password: '',
+  password_confirmation: '',
+  contract_type: '',
 };
 
-class AddClient extends Component {
+class AddEpmloyee extends Component {
   constructor(props) {
     super(props);
 
@@ -53,7 +52,7 @@ class AddClient extends Component {
 
   validateFields() {
     const { formFields } = this.state;
-    const { email } = formFields;
+    const { password, password_confirmation: passwordConfirmation } = formFields;
     let allFields = true;
 
     for (const key of Object.keys(formFields)) {
@@ -68,6 +67,15 @@ class AddClient extends Component {
     }
 
     if (!allFields) {
+      return false;
+    }
+
+    if (password !== passwordConfirmation) {
+      this.setState({
+        errorMessage: 'Hasła muszą być takie same',
+        successMessage: '',
+      });
+
       return false;
     }
 
@@ -86,25 +94,25 @@ class AddClient extends Component {
 
     dispatch(toggleLoader(true));
 
-    addTransaction(formFields)
+    createEmployee(formFields)
       .then((response) => {
+        dispatch(toggleLoader(false));
+
         if (!response || response && response.code !== 200) {
           this.setState({
             errorMessage: 'Coś poszło nie tak, spróbuj ponownie',
           });
-          dispatch(toggleLoader(false));
 
           return;
         }
 
         this.setState({
           errorMessage: '',
-          successMessage: 'Dodano transakcję',
+          successMessage: 'Dodano pracownika',
         });
 
-        return updateModels();
-      })
-      .then(() => dispatch(toggleLoader(false)));
+        updateModels();
+      });
   }
 
   render() {
@@ -115,46 +123,41 @@ class AddClient extends Component {
       <div className="admin-add-client-page">
         <FormWrapper heading="Uzupełnij formularz">
           <DropdownWithSearch
-            label="Pracownik:"
-            name="employee_id"
-            items={storeModels ? storeModels.employees : []}
-            onChange={this.handleInputsChange}
-          />
-          <DropdownWithSearch
             label="Osoba:"
             name="person_id"
             items={storeModels ? storeModels.persons : []}
             onChange={this.handleInputsChange}
           />
-          <DropdownWithSearch
-            label="Oferta:"
-            name="offer_id"
-            items={storeModels ? storeModels.offers : []}
-            onChange={this.handleInputsChange}
-          />
-
           <SimpleInput
-            name="transaction_type"
-            label="Typ transakcji:"
-            value={formFields.transaction_type}
+            name="employment_date"
+            label="Data zatrudnienia (YYYY-MM-DD):"
+            value={formFields.employment_date}
             onChange={this.handleInputsChange}
           />
           <SimpleInput
-            name="transaction_date"
-            label="Data transakcji (YYYY-MM-DD):"
-            value={formFields.transaction_date}
+            name="salary"
+            label="Zarobki:"
+            value={formFields.salary}
             onChange={this.handleInputsChange}
           />
           <SimpleInput
-            name="amount"
-            label="Ilość:"
-            value={formFields.amount}
+            name="password"
+            label="Hasło:"
+            type="password"
+            value={formFields.password}
             onChange={this.handleInputsChange}
           />
           <SimpleInput
-            name="facture_number"
-            label="Numer faktury:"
-            value={formFields.facture_number}
+            name="password_confirmation"
+            label="Potwierdź hasło:"
+            type="password"
+            value={formFields.password_confirmation}
+            onChange={this.handleInputsChange}
+          />
+          <SimpleInput
+            name="contract_type"
+            label="Rodzaj umowy:"
+            value={formFields.contract_type}
             onChange={this.handleInputsChange}
           />
 
@@ -172,4 +175,4 @@ const mapStateToProps = state => ({
   storeModels: state.storeModels,
 });
 
-export default connect(mapStateToProps)(AddClient);
+export default connect(mapStateToProps)(AddEpmloyee);

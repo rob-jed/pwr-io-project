@@ -25,7 +25,7 @@ class AdminPage extends Component {
     if (!storeModels) {
       getModels()
         .then((response) => {
-          if (!response) {
+          if (!response || response.error) {
             return;
           }
 
@@ -58,6 +58,22 @@ class AdminPage extends Component {
         {...props}
       />
     );
+
+    this.ManageUsers = props => (
+      <AsyncComponent
+        key="add-transactions"
+        loader={import('scenes/AdminPage/scenes/ManageUsers')}
+        {...props}
+      />
+    );
+
+    this.AddEmployee = props => (
+      <AsyncComponent
+        key="add-employee"
+        loader={import('scenes/AdminPage/scenes/AddEmployee')}
+        {...props}
+      />
+    );
   }
 
   render() {
@@ -72,6 +88,8 @@ class AdminPage extends Component {
           <Route path={`${path}/add-client`} component={this.AddClient} />
           <Route path={`${path}/transactions-list`} component={this.TransactionsList} />
           <Route path={`${path}/add-transaction`} component={this.AddTransaction} />
+          <Route path={`${path}/manage-users`} component={this.ManageUsers} />
+          <Route path={`${path}/add-employee`} component={this.AddEmployee} />
         </Switch>
       </PrimaryLayout>
     )

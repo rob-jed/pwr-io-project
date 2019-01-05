@@ -12,6 +12,12 @@ function getTitleFromPathname(pathname) {
   case '/admin/transactions-list':
     title += `${separator}Lista transakcji`;
     break;
+  case '/admin/manage-users':
+    title += `${separator}Zarządzaj pracownikami`;
+    break;
+  case '/admin/add-employee':
+    title += `${separator}Dodaj pracownika`;
+    break;
   default:
     break;
 }

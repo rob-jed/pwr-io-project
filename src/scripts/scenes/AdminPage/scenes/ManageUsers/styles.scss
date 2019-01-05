@@ -1,0 +1,17 @@
+.admin-manage-users {
+  display: flex;
+  justify-content: center;
+
+  position: relative;
+}
+
+.admin-manage-users .add-user-wrapper {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  text-decoration: none;
+}
+
+.admin-manage-users .add-user-wrapper a {
+  text-decoration: none;
+}

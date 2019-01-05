@@ -22,6 +22,10 @@ const links = [
     url: '/add-transaction',
     text: 'Dodaj transakcję',
   },
+  {
+    url: '/manage-users',
+    text: 'Zarządzaj pracownikami',
+  },
 ];
 
 function Sidebar({ path, pathname }) {

@@ -1,0 +1,34 @@
+.admin-users-list {
+  margin-top: 120px;
+  width: 800px;
+  max-width: 80%;
+  background-color: #fff;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+}
+
+.admin-users-list .single-user {
+  padding: 15px;
+
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+
+  display: flex;
+  align-items: center;
+}
+
+.admin-users-list .single-user .user-buttons {
+  margin-left: auto;
+}
+
+.admin-users-list .single-user .user-buttons a {
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+.admin-users-list .single-user .remove {
+  background-color: #c02b2b;
+
+  &:hover {
+    background-color: lighten(#c02b2b, 5);
+  }
+}

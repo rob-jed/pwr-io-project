@@ -107,12 +107,11 @@ class APIWrapper {
    *
    * @param {string}  endpoint - API endpoint without domain/IP
    *                             and initial slash (e.g. "api/users").
-   * @param {boolean} auth     - Set to false if the request doesn't require authorization.
    * @returns {Promise}
    */
-  delete(endpoint, auth = true) {
-    const request = this.createRequest('DELETE', endpoint, auth);
-    return this.call(request, false);
+  delete(endpoint, body) {
+    const request = this.createRequest('DELETE', endpoint);
+    return this.call(request, body);
   }
 
   /*
