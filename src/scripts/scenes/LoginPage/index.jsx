@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import ErrorMessage from 'components/ErrorMessage';
@@ -6,6 +7,7 @@ import SimpleInput from 'components/SimpleInput';
 import Button from 'components/Button';
 import FormWrapper from './components/FormWrapper';
 
+import { toggleLoader } from 'data/store/actions';
 import { handleLogin } from 'services/APIs';
 import { createLoggedInCookie } from 'services/User';
 import { isEmail } from 'services/String';
@@ -62,8 +64,13 @@ class LoginPage extends Component {
     }
 
     const { username, password } = this.state;
+    const { dispatch } = this.props;
+
+    dispatch(toggleLoader(true));
 
     handleLogin(username, password).then((response) => {
+      dispatch(toggleLoader(false));
+
       if (!response) {
         this.setState({
           error: 'Coś poszło nie tak. Spróbuj ponownie',
@@ -122,4 +129,4 @@ class LoginPage extends Component {
   }
 }
 
-export default withRouter(LoginPage);
+export default connect(withRouter)(LoginPage);

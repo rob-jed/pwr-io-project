@@ -1,19 +1,37 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Switch } from 'react-router-dom';
 
 import Route from 'components/AuthRoute';
 import AsyncComponent from 'components/AsyncComponent';
 import PrimaryLayout from 'components/PrimaryLayout';
+import { getModels } from 'services/APIs';
 
 import Sidebar from './components/Sidebar';
-
 import { getTitleFromPathname } from './services';
+
+import { setStoreModels } from 'data/store/actions';
 
 class AdminPage extends Component {
   constructor(props) {
     super(props)
 
     this.createRoutesComponents();
+  }
+
+  componentDidMount() {
+    const { dispatch, storeModels } = this.props;
+
+    if (!storeModels) {
+      getModels()
+        .then((response) => {
+          if (!response) {
+            return;
+          }
+
+          dispatch(setStoreModels(response));
+        })
+    }
   }
 
   createRoutesComponents() {
@@ -60,4 +78,8 @@ class AdminPage extends Component {
   }
 }
 
-export default AdminPage;
+const mapStateToProps = state => ({
+  storeModels: state.storeModels,
+});
+
+export default connect(mapStateToProps)(AdminPage);

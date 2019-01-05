@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import FormWrapper from 'components/FormWrapper';
 import SimpleInput from 'components/SimpleInput';
+import DropdownWithSearch from 'components/DropdownWithSearch';
 import Button from 'components/Button';
 import ErrorMessage from 'components/ErrorMessage';
 import SuccessMessage from 'components/SuccessMessage';
 
 import { isEmail } from 'services/String';
 import { createClient } from 'services/APIs';
+
+import { toggleLoader } from 'data/store/actions';
 
 import './styles.scss';
 
@@ -86,21 +90,32 @@ class AddClient extends Component {
     }
 
     const { formFields } = this.state;
+    const { dispatch } = this.props;
+
+    dispatch(toggleLoader(true));
 
     createClient(formFields)
       .then((response) => {
-          console.log(response.code);
-          // TODO: Finish validation
-          // this.setState({
-          //   formFields: { ...formFieldsShape },
-          //   errorMessage: '',
-          //   successMessage: 'Dodano osobę',
-          // });
+        dispatch(toggleLoader(false));
+
+        if (!response || response && response.code !== 200) {
+          this.setState({
+            errorMessage: 'Coś poszło nie tak, spróbuj ponownie',
+          });
+
+          return;
+        }
+
+        this.setState({
+          errorMessage: '',
+          successMessage: 'Dodano osobę',
         });
+      });
   }
 
   render() {
     const { formFields, errorMessage, successMessage } = this.state;
+    const { storeModels } = this.props;
 
     return (
       <div className="admin-add-client-page">
@@ -135,10 +150,10 @@ class AddClient extends Component {
             value={formFields.phone_number}
             onChange={this.handleInputsChange}
           />
-          <SimpleInput
-            name="address_id"
+          <DropdownWithSearch
             label="Adres:"
-            value={formFields.address_id}
+            name="address_id"
+            items={storeModels ? storeModels.adresses : []}
             onChange={this.handleInputsChange}
           />
           <SimpleInput
@@ -158,4 +173,8 @@ class AddClient extends Component {
   }
 }
 
-export default AddClient;
+const mapStateToProps = state => ({
+  storeModels: state.storeModels,
+});
+
+export default connect(mapStateToProps)(AddClient);
