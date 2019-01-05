@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import FormWrapper from 'components/FormWrapper';
 import SimpleInput from 'components/SimpleInput';
+import DropdownWithSearch from 'components/DropdownWithSearch';
 import Button from 'components/Button';
 import ErrorMessage from 'components/ErrorMessage';
 import SuccessMessage from 'components/SuccessMessage';
@@ -19,6 +20,17 @@ const formFieldsShape = {
   address_id: '',
   email: '',
 };
+
+const dropdownItems = [
+  {
+    text: 'Marian',
+    value: 1,
+  },
+  {
+    text: 'Bogdan',
+    value: 2,
+  },
+];
 
 class AddClient extends Component {
   constructor(props) {
@@ -110,34 +122,10 @@ class AddClient extends Component {
             value={formFields.surname}
             onChange={this.handleInputsChange}
           />
-          <SimpleInput
-            name="person_num"
-            label="PESEL:"
-            value={formFields.person_num}
-            onChange={this.handleInputsChange}
-          />
-          <SimpleInput
-            name="person_card"
-            label="Numer dowodu:"
-            value={formFields.person_card}
-            onChange={this.handleInputsChange}
-          />
-          <SimpleInput
-            name="phone_number"
-            label="Numer telefonu:"
-            value={formFields.phone_number}
-            onChange={this.handleInputsChange}
-          />
-          <SimpleInput
-            name="address_id"
-            label="Adres:"
-            value={formFields.address_id}
-            onChange={this.handleInputsChange}
-          />
-          <SimpleInput
-            name="email"
-            label="Email:"
-            value={formFields.email}
+          <DropdownWithSearch
+            label="Pracownik:"
+            name="employee_id"
+            items={dropdownItems}
             onChange={this.handleInputsChange}
           />
 
