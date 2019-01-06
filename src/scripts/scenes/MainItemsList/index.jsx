@@ -8,7 +8,8 @@ import Searchbar from 'components/Searchbar';
 import Filters from './components/Filters';
 import ItemsList from './components/ItemsList';
 
-import { setStoreItems } from 'data/store/actions';
+import { getStoreItems } from 'services/APIs';
+import { setStoreItems, toggleLoader } from 'data/store/actions';
 
 import './styles.scss';
 
@@ -16,70 +17,58 @@ const propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-const dummyItems = [
-  {
-    id: 1,
-    name: 'Zajebiste BMW Mordo',
-    description: 'Typowy pussy magnet',
-    seller: 'John Doe',
-    sellerDetails: {
-      phoneNumber: '111-222-333',
-      email: 'xyz@gmail.com',
-    },
-    carDetails: {
-      year: 1992,
-      engine: '3.0',
-    },
-  },
-  {
-    id: 2,
-    name: 'Nowiutkie BMW Od Seby',
-    description: 'Gunwno',
-    seller: 'John Doe',
-    sellerDetails: {
-      phoneNumber: '111-222-333',
-      email: 'xyz@gmail.com',
-    },
-    carDetails: {
-      year: 1992,
-      engine: '3.0',
-    },
-  },
-  {
-    id: 3,
-    name: 'Astra Twojego starego',
-    description: 'Ojciec płakał jak sprzedawał',
-    seller: 'John Doe',
-    sellerDetails: {
-      phoneNumber: '111-222-333',
-      email: 'xyz@gmail.com',
-    },
-    carDetails: {
-      year: 1992,
-      engine: '3.0',
-    },
-  },
-];
-
 class MainItemsList extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      filteredItems: null,
+    };
+
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  handleSearch(value) {
-    const { dispatch } = this.props;
-    let items = [...dummyItems];
+  componentDidMount() {
+    const { storeItems, dispatch } = this.props;
 
-    if (value) {
-      items = items.filter(item => item.name.toLowerCase().includes(value.toLowerCase()));
+    if (!storeItems) {
+      dispatch(toggleLoader(true));
+
+      getStoreItems()
+        .then((response) => {
+          dispatch(toggleLoader(false));
+
+          if (!response || response.code !== 200) { //eslint-disable-line
+            return;
+          }
+
+          dispatch(setStoreItems(response.car_list));
+        });
+    }
+  }
+
+  handleSearch(value) {
+    if (!value) {
+      this.setState({
+        filteredItems: null,
+      });
     }
 
-    dispatch(setStoreItems(items));
+    const { storeItems } = this.props;
+    let filteredItems = [...storeItems];
+
+    filteredItems = filteredItems.filter(
+      item => item.name.toLowerCase().includes(value.toLowerCase())
+    );
+
+    this.setState({
+      filteredItems,
+    });
   }
 
   render() {
+    const { filteredItems } = this.state;
+
     return (
       <PrimaryLayout
         headerTitle="Komis samochodowy Jędrzejewski &amp; Hadrian"
@@ -88,7 +77,7 @@ class MainItemsList extends Component {
       >
         <div className="list-view-wrapper">
           <Searchbar onChange={this.handleSearch} />
-          <ItemsList />
+          <ItemsList filteredItems={filteredItems} />
         </div>
       </PrimaryLayout>
     );
@@ -97,4 +86,8 @@ class MainItemsList extends Component {
 
 MainItemsList.propTypes = propTypes;
 
-export default connect()(MainItemsList);
+const mapStateToProps = state => ({
+  storeItems: state.storeItems,
+});
+
+export default connect(mapStateToProps)(MainItemsList);

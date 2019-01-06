@@ -3,12 +3,6 @@ import React from 'react';
 import './styles.scss';
 
 function OfferContent({ offer, contactVisible, onClick }) {
-  const contactClassList = ['contact-details-button'];
-
-  if (contactVisible) {
-    contactClassList.push('active');
-  }
-
   return (
     <div className="offer-content">
       <div className="offer-price">
@@ -21,7 +15,10 @@ function OfferContent({ offer, contactVisible, onClick }) {
         {offer.description}
       </div>
       <div className="contact-details">
-        <button className={contactClassList.join(' ')} onClick={onClick}>
+        <button
+          className={`contact-details-button ${contactVisible && 'active'}`}
+          onClick={onClick}
+        >
           {
             contactVisible ? (
               <React.Fragment>

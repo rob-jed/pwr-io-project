@@ -41,8 +41,10 @@ class Offer extends Component {
   }
 
   handleContact() {
+    const { contactVisible } = this.state;
+
     this.setState({
-      contactVisible: true,
+      contactVisible: !contactVisible,
     });
   }
 

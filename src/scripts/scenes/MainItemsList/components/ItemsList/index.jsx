@@ -4,63 +4,17 @@ import PropTypes from 'prop-types';
 
 import Button from 'components/Button';
 
-import { setStoreItems } from 'data/store/actions';
-
 import SingleItem from '../SingleItem';
 
 const propTypes = {
   storeItems: PropTypes.arrayOf(PropTypes.object),
+  filteredItems: PropTypes.arrayOf(PropTypes.object),
   dispatch: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
   storeItems: null,
 };
-
-const dummyItems = [
-  {
-    id: 1,
-    name: 'Zajebiste BMW Mordo',
-    description: 'Typowy pussy magnet',
-    seller: 'John Doe',
-    sellerDetails: {
-      phoneNumber: '111-222-333',
-      email: 'xyz@gmail.com',
-    },
-    carDetails: {
-      year: 1992,
-      engine: '3.0',
-    },
-  },
-  {
-    id: 2,
-    name: 'Nowiutkie BMW Od Seby',
-    description: 'Gunwno',
-    seller: 'John Doe',
-    sellerDetails: {
-      phoneNumber: '111-222-333',
-      email: 'xyz@gmail.com',
-    },
-    carDetails: {
-      year: 1992,
-      engine: '3.0',
-    },
-  },
-  {
-    id: 3,
-    name: 'Astra Twojego starego',
-    description: 'Ojciec płakał jak sprzedawał',
-    seller: 'John Doe',
-    sellerDetails: {
-      phoneNumber: '111-222-333',
-      email: 'xyz@gmail.com',
-    },
-    carDetails: {
-      year: 1992,
-      engine: '3.0',
-    },
-  },
-];
 
 class ItemsList extends Component {
   constructor(props) {
@@ -75,14 +29,6 @@ class ItemsList extends Component {
     this.loadMore = this.loadMore.bind(this);
   }
 
-  componentDidMount() {
-    const { dispatch, storeItems } = this.props;
-
-    if (!storeItems) {
-      dispatch(setStoreItems(dummyItems));
-    }
-  }
-
   loadMore() {
     const { page } = this.state;
 
@@ -92,14 +38,15 @@ class ItemsList extends Component {
   }
 
   render() {
-    const { storeItems } = this.props;
+    const { storeItems, filteredItems } = this.props;
 
     if (!storeItems) {
       return null;
     }
 
     const { page } = this.state;
-    const visibleItems = storeItems.slice(0, page * this.itemsPerPage);
+    const items = filteredItems || storeItems;
+    const visibleItems = items.slice(0, page * this.itemsPerPage);
 
     return (
       <div className="store-items-list">
