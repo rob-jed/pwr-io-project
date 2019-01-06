@@ -24,6 +24,10 @@ function Routes() {
           path={route('admin')}
           render={loadChunk('admin')}
         />
+        <Route
+          path={route('offer/:id')}
+          render={loadChunk('offer')}
+        />
       </Switch>
     </BrowserRouter>
   );

@@ -6,6 +6,8 @@ function getChunk(name) {
     return import('scenes/LoginPage');
   case 'admin':
     return import('scenes/AdminPage');
+  case 'offer':
+    return import('scenes/Offer');
   default:
     return null;
   }

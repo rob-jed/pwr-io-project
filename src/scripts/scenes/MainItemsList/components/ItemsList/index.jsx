@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import Button from 'components/Button';
+
 import { setStoreItems } from 'data/store/actions';
 
 import SingleItem from '../SingleItem';
@@ -61,12 +63,32 @@ const dummyItems = [
 ];
 
 class ItemsList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      page: 1,
+    };
+
+    this.itemsPerPage = 5;
+
+    this.loadMore = this.loadMore.bind(this);
+  }
+
   componentDidMount() {
     const { dispatch, storeItems } = this.props;
 
     if (!storeItems) {
       dispatch(setStoreItems(dummyItems));
     }
+  }
+
+  loadMore() {
+    const { page } = this.state;
+
+    this.setState({
+      page: page + 1,
+    });
   }
 
   render() {
@@ -76,14 +98,21 @@ class ItemsList extends Component {
       return null;
     }
 
+    const { page } = this.state;
+    const visibleItems = storeItems.slice(0, page * this.itemsPerPage);
+
     return (
       <div className="store-items-list">
         {
-          storeItems.map((item) => {
+          visibleItems.map((item) => {
             const { id } = item;
 
             return <SingleItem key={id} item={item} />;
           })
+        }
+        {
+          storeItems > visibleItems &&
+            <Button text="Załaduj więcej" onClick={this.loadMore} />
         }
       </div>
     );
