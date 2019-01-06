@@ -25,6 +25,7 @@ function Routes() {
           render={loadChunk('admin')}
         />
         <Route
+          noAuth
           path={route('offer/:id')}
           render={loadChunk('offer')}
         />
