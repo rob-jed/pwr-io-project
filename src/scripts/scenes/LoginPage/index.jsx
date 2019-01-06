@@ -56,7 +56,9 @@ class LoginPage extends Component {
     return true;
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
+
     const fieldValid = this.validateFields();
 
     if (!fieldValid) {
@@ -105,6 +107,7 @@ class LoginPage extends Component {
     return (
       <div className="app-login-page">
         <FormWrapper>
+          <form onSubmit={this.handleSubmit}>
           <SimpleInput
             name="username"
             label="Email:"
@@ -123,6 +126,7 @@ class LoginPage extends Component {
             text="Zaloguj się"
             onClick={this.handleSubmit}
           />
+          </form>
         </FormWrapper>
       </div>
     );
