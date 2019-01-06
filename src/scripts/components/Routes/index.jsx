@@ -29,8 +29,11 @@ function Routes() {
           path={route('offer/:id')}
           render={loadChunk('offer')}
         />
-
-        <Route component={loadChunk('/')}/>
+        {/* Default route for non existing paths */}
+        <Route
+          noAuth
+          component={loadChunk('/')}
+        />
       </Switch>
     </BrowserRouter>
   );
