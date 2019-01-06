@@ -58,7 +58,7 @@ class ItemsList extends Component {
           })
         }
         {
-          storeItems > visibleItems &&
+          items > visibleItems &&
             <Button text="Załaduj więcej" onClick={this.loadMore} />
         }
       </div>

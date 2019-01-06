@@ -71,7 +71,7 @@ class MainItemsList extends Component {
 
     return (
       <PrimaryLayout
-        headerTitle="Komis samochodowy Jędrzejewski &amp; Hadrian"
+        headerTitle="Komis samochodowy"
         sidebar={<Filters />}
         showBackButton={false}
       >

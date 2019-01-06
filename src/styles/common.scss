@@ -1,13 +1,15 @@
-html, body {
-  height: 100%;
+html,
+body {
+    height: 100%;
 }
 
 body {
-  background-color: $primaryLayoutColor;
-  color: $primaryColor;
-  font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    color: $primaryColor;
+
+    background-color: $primaryLayoutColor;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
