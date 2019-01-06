@@ -25,7 +25,7 @@ class User extends Component {
           {text}
         </div>
         <div className="user-buttons">
-          <Link to={`/edit-user`} userid={value}>
+          <Link to={{ pathname: `/admin/edit-employee`, userId: value }}>
             <Button text="Edytuj" />
           </Link>
           <Button customClass="remove" text="Usuń" onClick={this.handleRemove}/>

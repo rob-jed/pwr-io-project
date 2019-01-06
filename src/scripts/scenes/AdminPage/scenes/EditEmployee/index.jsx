@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import FormWrapper from 'components/FormWrapper';
 import SimpleInput from 'components/SimpleInput';
@@ -8,7 +9,8 @@ import Button from 'components/Button';
 import ErrorMessage from 'components/ErrorMessage';
 import SuccessMessage from 'components/SuccessMessage';
 
-import { createEmployee } from 'services/APIs';
+import { getEmployee, updateEmployee } from 'services/APIs';
+import { isEmail } from 'services/String';
 
 import { toggleLoader } from 'data/store/actions';
 
@@ -17,26 +19,61 @@ import { updateModels } from '../../services';
 import './styles.scss';
 
 const formFieldsShape = {
-  person_id: '',
-  employment_date: '',
+  name: '',
+  surname: '',
+  person_num: '',
+  person_card: '',
+  phone_number: '',
+  address_id: '',
+  email: '',
   salary: '',
   password: '',
   password_confirmation: '',
   contract_type: '',
 };
 
-class AddEpmloyee extends Component {
+class EditEmployee extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       formFields: { ...formFieldsShape },
+      activeAddress: null,
       errorMessage: '',
       successMessage: '',
     };
 
     this.handleInputsChange = this.handleInputsChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const { storeModels, location: { userId }, dispatch } = this.props;
+
+    if (!userId) {
+      return;
+    }
+
+    dispatch(toggleLoader(true));
+
+    getEmployee(userId)
+      .then((response) => {
+        dispatch(toggleLoader(false));
+
+        if (!response) {
+          return;
+        }
+
+        const activeAddress = storeModels.addresses.find(address => address.value === response.address_id);
+
+        this.setState({
+          formFields: {
+            ...formFieldsShape,
+            ...response,
+          },
+          activeAddress: activeAddress.text,
+        });
+      });
   }
 
   handleInputsChange(name, value) {
@@ -52,10 +89,15 @@ class AddEpmloyee extends Component {
 
   validateFields() {
     const { formFields } = this.state;
-    const { password, password_confirmation: passwordConfirmation } = formFields;
+    const { email, password, password_confirmation: passwordConfirmation } = formFields;
+    const fieldsToSkip = ['password', 'password_confirmation'];
     let allFields = true;
 
     for (const key of Object.keys(formFields)) {
+      if (fieldsToSkip.includes(key)) {
+        continue;
+      }
+
       if (!formFields[key]) {
         allFields = false;
         this.setState({
@@ -67,6 +109,15 @@ class AddEpmloyee extends Component {
     }
 
     if (!allFields) {
+      return false;
+    }
+
+    if (!isEmail(email)) {
+      this.setState({
+        errorMessage: 'Podaj poprawny adres email',
+        successMessage: '',
+      });
+
       return false;
     }
 
@@ -90,11 +141,14 @@ class AddEpmloyee extends Component {
     }
 
     const { formFields } = this.state;
-    const { dispatch } = this.props;
+    const { location: { userId }, dispatch } = this.props;
 
     dispatch(toggleLoader(true));
 
-    createEmployee(formFields)
+    updateEmployee({
+      employee_id: userId,
+      ...formFields,
+    })
       .then((response) => {
         dispatch(toggleLoader(false));
 
@@ -108,7 +162,7 @@ class AddEpmloyee extends Component {
 
         this.setState({
           errorMessage: '',
-          successMessage: 'Dodano pracownika',
+          successMessage: 'Zapisano zmiany',
         });
 
         updateModels();
@@ -116,22 +170,57 @@ class AddEpmloyee extends Component {
   }
 
   render() {
-    const { formFields, errorMessage, successMessage } = this.state;
-    const { storeModels } = this.props;
+    const { formFields, errorMessage, successMessage, activeAddress } = this.state;
+    const { storeModels, location: { userId } } = this.props;
+
+    if (!userId) {
+      return <Redirect to="/admin/manage-users" />;
+    }
 
     return (
-      <div className="admin-add-client-page">
+      <div className="admin-edit-employee-page">
         <FormWrapper heading="Uzupełnij formularz">
-          <DropdownWithSearch
-            label="Osoba:"
-            name="person_id"
-            items={storeModels ? storeModels.persons : []}
+          <SimpleInput
+            name="name"
+            label="Imię:"
+            value={formFields.name}
             onChange={this.handleInputsChange}
           />
           <SimpleInput
-            name="employment_date"
-            label="Data zatrudnienia (YYYY-MM-DD):"
-            value={formFields.employment_date}
+            name="surname"
+            label="Nazwisko:"
+            value={formFields.surname}
+            onChange={this.handleInputsChange}
+          />
+          <SimpleInput
+            name="person_num"
+            label="PESEL:"
+            value={formFields.person_num}
+            onChange={this.handleInputsChange}
+          />
+          <SimpleInput
+            name="person_card"
+            label="Numer dowodu:"
+            value={formFields.person_card}
+            onChange={this.handleInputsChange}
+          />
+          <SimpleInput
+            name="phone_number"
+            label="Numer telefonu:"
+            value={formFields.phone_number}
+            onChange={this.handleInputsChange}
+          />
+          <DropdownWithSearch
+            activeItem={activeAddress}
+            label="Adres:"
+            name="address_id"
+            items={storeModels ? storeModels.addresses : []}
+            onChange={this.handleInputsChange}
+          />
+          <SimpleInput
+            name="email"
+            label="Email:"
+            value={formFields.email}
             onChange={this.handleInputsChange}
           />
           <SimpleInput
@@ -164,7 +253,7 @@ class AddEpmloyee extends Component {
           { errorMessage && <ErrorMessage message={errorMessage} />}
           { successMessage && <SuccessMessage message={successMessage} />}
 
-          <Button text="Dodaj" onClick={this.handleSubmit} />
+          <Button text="Zapisz" onClick={this.handleSubmit} />
         </FormWrapper>
       </div>
     );
@@ -175,4 +264,4 @@ const mapStateToProps = state => ({
   storeModels: state.storeModels,
 });
 
-export default connect(mapStateToProps)(AddEpmloyee);
+export default connect(mapStateToProps)(EditEmployee);

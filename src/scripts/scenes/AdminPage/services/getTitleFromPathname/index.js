@@ -16,7 +16,10 @@ function getTitleFromPathname(pathname) {
     title += `${separator}Zarządzaj pracownikami`;
     break;
   case '/admin/add-employee':
-    title += `${separator}Dodaj pracownika`;
+    title += `${separator}Zarządzaj pracownikami${separator}Dodaj pracownika`;
+    break;
+  case '/admin/edit-employee':
+    title += `${separator}Zarządzaj pracownikami${separator}Edytuj pracownika`;
     break;
   default:
     break;

@@ -7,6 +7,7 @@ import DropdownItems from './components/DropdownItems';
 import './styles.scss';
 
 const propTypes = {
+  activeItem: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
@@ -15,6 +16,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  activeItem: null,
   label: '',
   placeholder: 'Wybierz jedną z opcji',
 };
@@ -25,7 +27,7 @@ class DropdownWithSearch extends Component {
 
     this.state = {
       isOpened: false,
-      activeItem: '',
+      activeItem: this.props.activeItem,
       filteredItems: null,
     };
 
@@ -33,6 +35,14 @@ class DropdownWithSearch extends Component {
     this.handleBlur = this.handleBlur.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleWrapperClick = this.handleWrapperClick.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.activeItem === null && !prevProps.activeItem && this.props.activeItem) {
+      this.setState({
+        activeItem: this.props.activeItem,
+      });
+    }
   }
 
   getWrapperClassList() {

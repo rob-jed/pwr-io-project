@@ -53,7 +53,6 @@ class AddClient extends Component {
 
   validateFields() {
     const { formFields } = this.state;
-    const { email } = formFields;
     let allFields = true;
 
     for (const key of Object.keys(formFields)) {
@@ -88,7 +87,7 @@ class AddClient extends Component {
 
     addTransaction(formFields)
       .then((response) => {
-        if (!response || response && response.code !== 200) {
+        if (!response || response && response.code !== 200) { //eslint-disable-line
           this.setState({
             errorMessage: 'Coś poszło nie tak, spróbuj ponownie',
           });

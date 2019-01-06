@@ -1,5 +1,3 @@
-import Cookies from 'js-cookie';
-
 class APIWrapper {
   constructor(config) {
     const defaults = {

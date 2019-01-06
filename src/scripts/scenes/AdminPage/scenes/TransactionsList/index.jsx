@@ -10,8 +10,8 @@ function TransactionsList({ storeModels }) {
         (storeModels && storeModels.transactions && storeModels.transactions.length) ? (
           <ul className="transactions-list">
             {
-              storeModels.transactions.map((transaction) => (
-                <li className="transaction">
+              storeModels.transactions.map(transaction => (
+                <li key={transaction.value} className="transaction">
                   { transaction.text }
                 </li>
               ))

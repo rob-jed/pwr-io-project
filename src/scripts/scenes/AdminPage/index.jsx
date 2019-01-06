@@ -10,7 +10,7 @@ import { getModels } from 'services/APIs';
 import Sidebar from './components/Sidebar';
 import { getTitleFromPathname } from './services';
 
-import { setStoreModels } from 'data/store/actions';
+import { setStoreModels, toggleLoader } from 'data/store/actions';
 
 class AdminPage extends Component {
   constructor(props) {
@@ -23,6 +23,8 @@ class AdminPage extends Component {
     const { dispatch, storeModels } = this.props;
 
     if (!storeModels) {
+      dispatch(toggleLoader(true));
+
       getModels()
         .then((response) => {
           if (!response || response.error) {
@@ -30,6 +32,7 @@ class AdminPage extends Component {
           }
 
           dispatch(setStoreModels(response));
+          dispatch(toggleLoader(false));
         })
     }
   }
@@ -74,6 +77,14 @@ class AdminPage extends Component {
         {...props}
       />
     );
+
+    this.EditEmployee = props => (
+      <AsyncComponent
+        key="add-employee"
+        loader={import('scenes/AdminPage/scenes/EditEmployee')}
+        {...props}
+      />
+    );
   }
 
   render() {
@@ -90,6 +101,7 @@ class AdminPage extends Component {
           <Route path={`${path}/add-transaction`} component={this.AddTransaction} />
           <Route path={`${path}/manage-users`} component={this.ManageUsers} />
           <Route path={`${path}/add-employee`} component={this.AddEmployee} />
+          <Route path={`${path}/edit-employee`} component={this.EditEmployee} />
         </Switch>
       </PrimaryLayout>
     )

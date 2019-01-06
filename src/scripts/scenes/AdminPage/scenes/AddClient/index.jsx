@@ -98,7 +98,7 @@ class AddClient extends Component {
       .then((response) => {
         dispatch(toggleLoader(false));
 
-        if (!response || response && response.code !== 200) {
+        if (!response || response && response.code !== 200) { //eslint-disable-line
           this.setState({
             errorMessage: 'Coś poszło nie tak, spróbuj ponownie',
           });
@@ -153,7 +153,7 @@ class AddClient extends Component {
           <DropdownWithSearch
             label="Adres:"
             name="address_id"
-            items={storeModels ? storeModels.adresses : []}
+            items={storeModels ? storeModels.addresses : []}
             onChange={this.handleInputsChange}
           />
           <SimpleInput

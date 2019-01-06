@@ -7,7 +7,7 @@ const propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   type: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
 };
 
@@ -29,6 +29,14 @@ class SimpleInput extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevProps.value && !prevState.isActive && this.props.value) {
+      this.setState({
+        isActive: true,
+      });
+    }
   }
 
   handleChange(e) {

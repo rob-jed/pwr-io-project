@@ -6,6 +6,8 @@ import getModels from './getModels';
 import addTransaction from './addTransaction';
 import createEmployee from './createEmployee';
 import removeEmployee from './removeEmployee';
+import getEmployee from './getEmployee';
+import updateEmployee from './updateEmployee';
 
 export {
   APIWrapper,
@@ -16,4 +18,6 @@ export {
   addTransaction,
   createEmployee,
   removeEmployee,
+  getEmployee,
+  updateEmployee,
 };
