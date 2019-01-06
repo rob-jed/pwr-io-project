@@ -30,7 +30,7 @@ function TransactionsList({ storeModels }) {
                     { transaction.transaction_type }
                   </span>
                   <span className="date">
-                    { transaction.transaction_date }
+                    { transaction.transaction_date.split(' ')[0] }
                   </span>
                 </li>
               ))
