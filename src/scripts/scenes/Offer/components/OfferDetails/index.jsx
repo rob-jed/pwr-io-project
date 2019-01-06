@@ -20,6 +20,7 @@ function OfferDetails({ details }) {
               </span>
               <span className="detail-value">
                 {detail.value}
+                {detail.unit && detail.unit}
               </span>
             </li>
           ))

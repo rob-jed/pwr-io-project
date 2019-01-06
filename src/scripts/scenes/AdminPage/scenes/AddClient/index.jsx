@@ -13,6 +13,8 @@ import { createClient } from 'services/APIs';
 
 import { toggleLoader } from 'data/store/actions';
 
+import { updateModels } from '../../services';
+
 import './styles.scss';
 
 const formFieldsShape = {
@@ -110,6 +112,8 @@ class AddClient extends Component {
           errorMessage: '',
           successMessage: 'Dodano osobę',
         });
+
+        updateModels();
       });
   }
 

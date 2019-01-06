@@ -26,6 +26,7 @@ function SingleItem({ item }) {
                   </span>
                   <span className="item-detail-value">
                     {detail.value}
+                    {detail.unit && detail.unit}
                   </span>
                 </li>
               ))
