@@ -8,6 +8,7 @@ import createEmployee from './createEmployee';
 import removeEmployee from './removeEmployee';
 import getEmployee from './getEmployee';
 import updateEmployee from './updateEmployee';
+import getOffer from './getOffer';
 
 export {
   APIWrapper,
@@ -20,4 +21,5 @@ export {
   removeEmployee,
   getEmployee,
   updateEmployee,
+  getOffer,
 };

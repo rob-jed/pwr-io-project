@@ -45,8 +45,17 @@
     margin-left: auto;
 
     .button {
-        &:hover {
-            background-color: #c02b2b;
+        margin-left: 15px;
+        &.button-logout {
+            &:hover {
+                background-color: #c02b2b;
+            }
+        }
+        &.button-admin,
+        &.button-login {
+            &:hover {
+                background-color: #06ad30;
+            }
         }
     }
 }

@@ -38,7 +38,15 @@ function MainHeader({ title, showBackButton }) {
 
         <div className="buttons-group">
           {
-            isLoggedIn() ? <LogOutButton /> : (
+            isLoggedIn() ?
+              (
+                <React.Fragment>
+                  <Link to={route('admin')}>
+                    <Button text="Panel administratora" customClass="button-admin" />
+                  </Link>
+                  <LogOutButton />
+                </React.Fragment>
+              ) : (
               <Link to={route('login')}>
                 <Button text="Zaloguj" customClass="button-login" />
               </Link>
