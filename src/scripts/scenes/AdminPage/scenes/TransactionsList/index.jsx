@@ -10,6 +10,9 @@ function TransactionsList({ storeModels }) {
         (storeModels && storeModels.transactions && storeModels.transactions.length) ? (
           <ul className="transactions-list">
             <li>
+              <span className="number-header">
+                Lp:
+              </span>
               <span className="amount-header">
                 Ilość:
               </span>
@@ -21,8 +24,11 @@ function TransactionsList({ storeModels }) {
               </span>
             </li>
             {
-              storeModels.transactions.map(transaction => (
+              storeModels.transactions.map((transaction, index) => (
                 <li key={transaction.value} className="transaction">
+                  <span className="number">
+                    { index + 1 }
+                  </span>
                   <span className="amount">
                     { transaction.amount }
                   </span>

@@ -24,10 +24,16 @@
         display: inline-block;
     }
 
+    .number-header,
     .amount-header,
     .type-header,
     .date-header {
         font-weight: bold;
+    }
+
+    .number-header,
+    .number {
+        width: 50px;
     }
 
     .amount-header,

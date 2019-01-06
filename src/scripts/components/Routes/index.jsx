@@ -29,6 +29,8 @@ function Routes() {
           path={route('offer/:id')}
           render={loadChunk('offer')}
         />
+
+        <Route component={loadChunk('/')}/>
       </Switch>
     </BrowserRouter>
   );
