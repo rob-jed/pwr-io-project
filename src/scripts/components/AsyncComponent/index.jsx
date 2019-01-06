@@ -1,5 +1,7 @@
 import React, { Component, Suspense, lazy } from 'react';
 
+import LoaderOverlay from 'components/LoaderOverlay';
+
 class AsyncComponent extends Component {
   constructor(props) {
     super(props);
@@ -8,7 +10,7 @@ class AsyncComponent extends Component {
   }
 
   renderFallback() {
-    return <h1>Chunk loading failed. Please try again</h1>;
+    return <LoaderOverlay forceActive />;
   }
 
   render() {

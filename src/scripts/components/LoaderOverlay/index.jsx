@@ -6,16 +6,18 @@ import './styles.scss';
 
 const propTypes = {
   isLoaderActive: PropTypes.bool,
+  forceActive: PropTypes.bool,
 };
 
 const defaultProps = {
   isLoaderActive: false,
+  forceActive: false,
 };
 
-function LoaderOverlay({ isLoaderActive }) {
+function LoaderOverlay({ isLoaderActive, forceActive }) {
   const classList = ['loader-overlay'];
 
-  if (isLoaderActive) {
+  if (isLoaderActive && forceActive) {
     classList.push('active');
   }
 
