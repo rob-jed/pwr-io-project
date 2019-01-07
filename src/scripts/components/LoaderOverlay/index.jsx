@@ -17,7 +17,7 @@ const defaultProps = {
 function LoaderOverlay({ isLoaderActive, forceActive }) {
   const classList = ['loader-overlay'];
 
-  if (isLoaderActive && forceActive) {
+  if (isLoaderActive || forceActive) {
     classList.push('active');
   }
 
