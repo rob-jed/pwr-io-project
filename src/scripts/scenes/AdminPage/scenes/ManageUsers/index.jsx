@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import ConfirmationPopup from 'components/ConfirmationPopup';
 import AddEmployeeButton from './components/AddEmployeeButton';
 import UsersList from './components/UsersList';
 
@@ -15,7 +16,13 @@ class ManageUsers extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      userId: null,
+    };
+
     this.handleRemove = this.handleRemove.bind(this);
+    this.handleSuccess = this.handleSuccess.bind(this);
+    this.handleFailure = this.handleFailure.bind(this);
   }
 
   handleRemove(value) {
@@ -23,12 +30,28 @@ class ManageUsers extends Component {
       return;
     }
 
+    this.setState({
+      userId: value,
+    });
+  }
+
+  handleSuccess() {
+    const { userId } = this.state;
+
+    if (!userId) {
+      return;
+    }
+
     toggleLoader(true);
 
-    removeEmployee(value)
+    removeEmployee(userId)
       .then((response) => {
+        this.setState({
+          userId: null,
+        });
+
         if (!response || response.code !== 200) {
-          toggleLoader(false);
+          return;
         }
 
         return updateModels();
@@ -36,11 +59,24 @@ class ManageUsers extends Component {
       .then(() => toggleLoader(false));
   }
 
+  handleFailure() {
+    this.setState({
+      userId: null,
+    });
+  }
+
   render() {
+    const { userId } = this.state;
     const { storeModels } = this.props;
 
     return (
       <div className="admin-manage-users">
+        <ConfirmationPopup
+          isActive={!!userId}
+          question="Jesteś pewny? Tej operacji nie można cofnąć."
+          onSuccess={this.handleSuccess}
+          onFailure={this.handleFailure}
+        />
         <AddEmployeeButton />
         {
           storeModels && (
